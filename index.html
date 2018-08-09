@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<style>
+    .box1{
+        width: 400px;
+        height: 267px;
+        border: 1px solid red;
+        float: left;
+        position: relative;
+        background: url("img/小.jpg") no-repeat; 
+    }
+    .box{
+        width: 400px;
+        height: 267px;
+        position: absolute;
+        z-index: 10;
+    }
+    .son{
+        width: 100px;
+        height: 100px;
+        position: absolute;
+        background: white;
+        opacity: 0.5;
+        display: none;
+    }
+    .box2{
+        width: 200px;
+        height: 200px;
+        border: 1px solid  green;
+        float: left;
+        background: url("img/大.jpg") no-repeat;
+        display: none;
+    }
+    
+</style>
+<body>
+    <div class="box1">
+        <div class="son"></div>
+        <div class="box"></div>
+    </div>
+    <div class="box2">
+
+    </div>
+</body>
+<script>
+    let box1=document.querySelector(".box1");
+    let box2=document.querySelector(".box2");
+    let box=document.querySelector(".box");
+    let son=document.querySelector(".son");
+    box.onmouseenter=function(e){
+       box2.style.display="block";
+       son.style.display="block"
+       box1.onmousemove=function(e){
+       
+       
+        x=e.clientX-box1.offsetLeft-son.offsetWidth/2;
+        y=e.clientY-box1.offsetTop-son.offsetHeight/2;
+        if(x>=box.offsetWidth-son.offsetWidth){
+            x=box.offsetWidth-son.offsetWidth
+        }
+        else if(x<=0){
+            x=0;
+        }
+        if(y>=box.offsetHeight-son.offsetHeight){
+            y=box.offsetHeight-son.offsetHeight
+        }
+        else if(y<=0){
+            y=0;
+        }
+        son.style.left=x+"px";
+       son.style.top=y+"px";
+       box2.style.backgroundPosition=`-${2*x}px -${2*y}px`;
+      
+       }
+       box.onmouseleave=function(){
+           box2.style.display="none";
+           son.style.display="none"
+       }
+      
+    }
+</script>
+</html>
